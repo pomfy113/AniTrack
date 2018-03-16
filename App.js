@@ -26,14 +26,16 @@ type Props = {};
 export default class App extends Component<Props> {
     constructor(props){
         super(props)
+
         this.state = {
             data: null,
-            days: null,
+            day: null
         }
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.getAPIdata();
+        this.setState({day : new Date().getDay()})
     }
 
     getAPIdata(){
@@ -45,24 +47,32 @@ export default class App extends Component<Props> {
             return res.json()
         }).then((data) => {
             let cleanedup = typeof data === 'string' ? JSON.parse(data) : data;
-            let sorted = this.sortByDay()
-            this.setState({data : cleanedup})
+            let sorted = this.sortByDay(cleanedup)
         }).catch((err) => {
             console.log(err)
         });
     }
 
     sortByDay(data){
-        let list = {}
+        let animeList = []
+        console.log(typeof data)
         data.forEach((anime) => {
-
+            let day = new Date(anime.releaseDate).getDay()
+            if(animeList[day]){
+                animeList[day].push(anime);
+            }
+            else{
+                animeList[day] = [anime];
+            }
         })
+
+        this.setState({data: animeList})
     }
 
     render() {
         let content;
         if(this.state.data){
-            content = this.state.data.map((anime) => {
+            content = this.state.data[this.state.day].map((anime) => {
                 return(
                     <View>
                         <Image style={{width: 112, height: 159}} source={{uri: anime.picture}}/>
