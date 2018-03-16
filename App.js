@@ -76,8 +76,8 @@ export default class App extends Component<Props> {
             content = this.state.data[this.state.day].map((anime, index) => {
                 return(
                     <View key={index} style={styles.anime}>
-                        <Image style={{width: 112, height: 159}} source={{uri: anime.picture}}/>
-                        <Text>{anime.title}</Text>
+                        <Image style={{width: 168, height: 238}} source={{uri: anime.picture}}/>
+                        <Text style={styles.title}>{anime.title}</Text>
                     </View>
                 )
             })
@@ -97,7 +97,7 @@ export default class App extends Component<Props> {
                 <Text style={styles.instructions}>
                     {instructions}
                 </Text>
-                <ScrollView horizontal='true'>
+                <ScrollView horizontal={true}>
                     {content}
                 </ScrollView>
             </View>
@@ -123,7 +123,12 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     anime: {
-        width: 112,
+        width: 188,
         marginHorizontal: 10
+    },
+    title: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: "800"
     }
 });
