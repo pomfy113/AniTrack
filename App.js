@@ -9,7 +9,8 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View
+    View,
+    Image
 } from 'react-native';
 
 
@@ -25,27 +26,55 @@ type Props = {};
 export default class App extends Component<Props> {
     constructor(props){
         super(props)
-        console.log("I'm in")
-        console.log(test())
+        this.state = {
+            data: null,
+            days: null,
+        }
+    }
+
+    componentDidMount(){
+        this.getAPIdata();
     }
 
     getAPIdata(){
         const api = `http://our-anime-list-fc.herokuapp.com/get-current`
 
-        const options = {
-            method: 'GET'
-        };
+        const options = { method: 'GET' };
 
-        return fetch(api, options).then((res) => {
+        fetch(api, options).then((res) => {
             return res.json()
         }).then((data) => {
             let cleanedup = typeof data === 'string' ? JSON.parse(data) : data;
-            return cleanedup
+            let sorted = this.sortByDay()
+            this.setState({data : cleanedup})
         }).catch((err) => {
             console.log(err)
         });
     }
+
+    sortByDay(data){
+        let list = {}
+        data.forEach((anime) => {
+
+        })
+    }
+
     render() {
+        let content;
+        if(this.state.data){
+            content = this.state.data.map((anime) => {
+                return(
+                    <View>
+                        <Image style={{width: 112, height: 159}} source={{uri: anime.picture}}/>
+                        <Text>{anime.title}</Text>
+                    </View>
+                )
+            })
+        }
+        else{
+            content = (<Text>Loading!</Text>)
+        }
+
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>
@@ -57,6 +86,7 @@ export default class App extends Component<Props> {
                 <Text style={styles.instructions}>
                     {instructions}
                 </Text>
+                {content}
             </View>
         );
     }
