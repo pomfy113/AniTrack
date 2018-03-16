@@ -10,7 +10,8 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image,
+    ScrollView
 } from 'react-native';
 
 
@@ -72,9 +73,9 @@ export default class App extends Component<Props> {
     render() {
         let content;
         if(this.state.data){
-            content = this.state.data[this.state.day].map((anime) => {
+            content = this.state.data[this.state.day].map((anime, index) => {
                 return(
-                    <View>
+                    <View key={index} style={styles.anime}>
                         <Image style={{width: 112, height: 159}} source={{uri: anime.picture}}/>
                         <Text>{anime.title}</Text>
                     </View>
@@ -96,7 +97,9 @@ export default class App extends Component<Props> {
                 <Text style={styles.instructions}>
                     {instructions}
                 </Text>
-                {content}
+                <ScrollView horizontal='true'>
+                    {content}
+                </ScrollView>
             </View>
         );
     }
@@ -119,4 +122,8 @@ const styles = StyleSheet.create({
         color: '#333333',
         marginBottom: 5,
     },
+    anime: {
+        width: 112,
+        marginHorizontal: 10
+    }
 });
