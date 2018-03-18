@@ -14,6 +14,9 @@ import {
     ScrollView
 } from 'react-native';
 
+import moment from 'moment';
+
+
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -27,16 +30,20 @@ type Props = {};
 export default class App extends Component<Props> {
     constructor(props){
         super(props)
+        this.days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]
 
         this.state = {
             data: null,
-            day: null
+            currentDay: null,
+            day: null,
         }
     }
 
     componentWillMount(){
+        let today = new Date().getDay()
+
         this.getAPIdata();
-        this.setState({day : new Date().getDay()})
+        this.setState({day: today, currentDay: today})
     }
 
     getAPIdata(){
@@ -74,9 +81,11 @@ export default class App extends Component<Props> {
         let content;
         if(this.state.data){
             content = this.state.data[this.state.day].map((anime, index) => {
+                const formattedDate = moment(anime.releaseDate).format("HH:mma")
                 return(
                     <View key={index} style={styles.anime}>
-                        <Image style={{width: 168, height: 238}} source={{uri: anime.picture}}/>
+                        <Image style={{width: 225, height: 293}} source={{uri: anime.picture}}/>
+                        <Text>{formattedDate}</Text>
                         <Text style={styles.title}>{anime.title}</Text>
                     </View>
                 )
@@ -88,15 +97,6 @@ export default class App extends Component<Props> {
 
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit App.js
-                </Text>
-                <Text style={styles.instructions}>
-                    {instructions}
-                </Text>
                 <ScrollView horizontal={true}>
                     {content}
                 </ScrollView>
@@ -112,18 +112,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
     anime: {
-        width: 188,
+        width: 225,
         marginHorizontal: 10
     },
     title: {
