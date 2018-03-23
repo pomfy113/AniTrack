@@ -5,10 +5,12 @@ import moment from 'moment';
 
 function Anime(props){
     return(
-        <View key={props.index} style={styles.anime}>
+        <View style={styles.anime}>
             <Image style={{width: 225, height: 293}} source={{uri: props.anime.picture}}/>
-            <Text>{props.date}</Text>
-            <Text style={styles.title}>{props.anime.title}</Text>
+            <View style={styles.info}>
+                <Text style={styles.date}>{props.date}</Text>
+                <Text style={styles.title}>{props.anime.title}</Text>
+            </View>
         </View>
     )
 }
@@ -17,11 +19,11 @@ class AnimeScroll extends Component{
     render(){
         const content = this.props.data[this.props.day].map((anime, index) => {
             const formattedDate = moment(anime.releaseDate).format("HH:mma");
-            return <Anime index={index} anime={anime} date={formattedDate}/>
+            return <Anime key= {index} anime={anime} date={formattedDate}/>
         })
 
         return (
-            <ScrollView horizontal={true}>
+            <ScrollView>
                 {content}
                 <Text>Testing</Text>
             </ScrollView>
@@ -31,13 +33,20 @@ class AnimeScroll extends Component{
 
 const styles = StyleSheet.create({
     anime: {
-        width: 225,
-        marginHorizontal: 10
+        flex: 1,
+        marginVertical: 10,
+        flexDirection: "row",
+    },
+    info: {
+        marginLeft: 10,
+        width: 200
     },
     title: {
-        textAlign: 'center',
         fontSize: 20,
         fontWeight: "800"
+    },
+    date: {
+        fontSize: 14,
     }
 });
 
