@@ -1,36 +1,22 @@
 import React, { Component } from 'react';
-import { FlatList, ListItem, StyleSheet, View, Text, Image, ScrollView } from 'react-native';
+import { FlatList, ListItem, StyleSheet, TouchableOpacity, View, Text, Image} from 'react-native';
 import moment from 'moment';
 
 
 function Anime(props){
     return(
-        <View style={styles.anime}>
-            <Image style={{width: 225, height: 293}} source={{uri: props.anime.picture}}/>
-            <View style={styles.info}>
-                <Text style={styles.date}>{props.date}</Text>
-                <Text style={styles.title}>{props.anime.title}</Text>
+        <TouchableOpacity onPress={props.handleModal}>
+            <View style={styles.anime}>
+                <Image style={{width: 225, height: 293}} source={{uri: props.anime.picture}}/>
+                <View style={styles.info}>
+                    <Text style={styles.date}>{props.date}</Text>
+                    <Text style={styles.title}>{props.anime.title}</Text>
+                </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
-// class AnimeScroll extends Component{
-//     render(){
-//         const content = this.props.data[this.props.day].map((anime, index) => {
-//             const date = new Date(anime.releaseDate)
-//             const formattedDate = moment(date).format("h:mma");
-//             return <Anime key= {index} anime={anime} date={formattedDate}/>
-//         })
-//
-//         return (
-//             <ScrollView>
-//                 {content}
-//                 <Text>Testing</Text>
-//             </ScrollView>
-//         )
-//     }
-// }
 
 class AnimeScroll extends Component{
     constructor(props){
@@ -69,7 +55,7 @@ class AnimeScroll extends Component{
                         date={moment(new Date(item.releaseDate)).format("h:mma")}
                         onEndReached={() => console.log("!")}
                         onEndReachedThreshold={0.5}
-                        style={{flex: 1}}
+                        handleModal={() => console.log("Hewoo!")}
                     />}
             />
         )

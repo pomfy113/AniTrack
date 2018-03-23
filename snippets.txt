@@ -1,0 +1,16 @@
+// class AnimeScroll extends Component{
+//     render(){
+//         const content = this.props.data[this.props.day].map((anime, index) => {
+//             const date = new Date(anime.releaseDate)
+//             const formattedDate = moment(date).format("h:mma");
+//             return <Anime key= {index} anime={anime} date={formattedDate}/>
+//         })
+//
+//         return (
+//             <ScrollView>
+//                 {content}
+//                 <Text>Testing</Text>
+//             </ScrollView>
+//         )
+//     }
+// }
