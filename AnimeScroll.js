@@ -28,7 +28,6 @@ class AnimeScroll extends Component{
     }
 
     render(){
-        console.log("Currently:", this.props.day)
         const content = this.props.data[this.props.day].map((anime, index) => {
             const date = new Date(anime.releaseDate)
             const formattedDate = moment(date).format("h:mma");

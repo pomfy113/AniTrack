@@ -1,12 +1,5 @@
-/**
-* Sample React Native App
-* https://github.com/facebook/react-native
-* @flow
-*/
-
-import React, { Component } from 'react';
+import React from 'react';
 import {
-    Platform,
     StyleSheet,
     Text,
     View,
@@ -15,18 +8,7 @@ import {
 import AnimeScroll from './AnimeScroll.js'
 import DayPicker from './DayPicker.js'
 
-
-
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-
-export default class App extends Component<Props> {
+export default class App extends React.Component {
     constructor(props){
         super(props)
         this.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
@@ -45,11 +27,10 @@ export default class App extends Component<Props> {
     }
 
     getAPIdata(){
-        const api = `http://ouranimechart.herokuapp.com/get-current`
+        const api = 'http://ouranimechart.herokuapp.com/get-current'
 
         const options = { method: 'GET' };
-
-        fetch(api, options).then((res) => {
+        return fetch(api, options).then((res) => {
             return res.json()
         }).then((data) => {
             let cleanedup = typeof data === 'string' ? JSON.parse(data) : data;
@@ -83,6 +64,7 @@ export default class App extends Component<Props> {
     render() {
         let content;
         if(this.state.data){
+            console.log("Found something?")
             content = (
                 <View>
                     <DayPicker currentDay={this.state.day} allDays={this.days} changeDay={(day) => this.changeDay(day)}/>
