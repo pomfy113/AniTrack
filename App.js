@@ -76,6 +76,7 @@ export default class App extends Component<Props> {
     }
 
     changeDay(day){
+        console.log(day)
         return this.setState({day: day})
     }
 

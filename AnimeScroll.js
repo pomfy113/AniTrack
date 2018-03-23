@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, ListItem, StyleSheet, TouchableOpacity, View, Text, Image} from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, View, Text, Image} from 'react-native';
 import moment from 'moment';
 
 
@@ -28,19 +28,18 @@ class AnimeScroll extends Component{
     }
 
     render(){
+        console.log("Currently:", this.props.day)
+        const content = this.props.data[this.props.day].map((anime, index) => {
+            const date = new Date(anime.releaseDate)
+            const formattedDate = moment(date).format("h:mma");
+            return <Anime key={index} anime={anime} date={formattedDate} handleModal={() => console.log("Hewoo!")}/>
+        })
+
         return (
             <View style={styles.animeList}>
-                <FlatList
-                    data={this.state.current}
-                    renderItem={({item}, index) =>
-                        <Anime
-                            key={index}
-                            anime={item}
-                            date={moment(new Date(item.releaseDate)).format("h:mma")}
-                            handleModal={() => console.log("Hewoo!")}
-                        />
-                    }
-                />
+                <ScrollView >
+                    {content}
+                </ScrollView>
             </View>
         )
     }

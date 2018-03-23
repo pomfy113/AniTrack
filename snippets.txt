@@ -14,3 +14,21 @@
 //         )
 //     }
 // }
+
+
+return (
+
+    <View style={styles.animeList}>
+        <FlatList
+            data={this.state.current}
+            renderItem={({item}, index) =>
+                <Anime
+                    key={index}
+                    anime={item}
+                    date={moment(new Date(item.releaseDate)).format("h:mma")}
+                    handleModal={() => console.log("Hewoo!")}
+                />
+            }
+        />
+    </View>
+)

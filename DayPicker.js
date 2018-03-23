@@ -12,7 +12,7 @@ class DayPicker extends Component{
         return(
             <View style={styles.picker}>
                 <Picker
-                  style={{flex: 1, padding: 5}}
+                  style={{flex: 1, color: 'white'}}
                   selectedValue={this.props.currentDay}
                   onValueChange={(itemValue) => this.props.changeDay(itemValue)}>
                     {PickerItems}
@@ -25,12 +25,12 @@ class DayPicker extends Component{
 
 const styles = StyleSheet.create({
     picker: {
-        flex: 1
-    },
-        pickerItems: {
-            fontSize: 20,
-            fontWeight: '900'
-        }
+        height: 70,
+        marginVertical: 15,
+        paddingHorizontal: 15,
+        backgroundColor: "#343a70",
+        borderRadius: 15
+    }
 });
 
 
