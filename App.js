@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import AnimeScroll from './AnimeScroll.js'
+import DayPicker from './DayPicker.js'
 
 
 
@@ -74,12 +75,16 @@ export default class App extends Component<Props> {
         this.setState({data: animeList})
     }
 
+    changeDay(day){
+        return this.setState({day: day})
+    }
+
     render() {
         let content;
         if(this.state.data){
             content = (
                 <View>
-                    <DayPicker/>
+                    <DayPicker currentDay={this.state.day} allDays={this.days} changeDay={(day) => this.changeDay(day)}/>
                     <AnimeScroll data={this.state.data} day={this.state.day}/>
                 </View>
             )

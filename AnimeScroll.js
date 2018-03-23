@@ -29,22 +29,27 @@ class AnimeScroll extends Component{
 
     render(){
         return (
-            <FlatList
-                data={this.state.current}
-                renderItem={({item}, index) =>
-                    <Anime
-                        key={index}
-                        anime={item}
-                        date={moment(new Date(item.releaseDate)).format("h:mma")}
-                        handleModal={() => console.log("Hewoo!")}
-                    />
-                }
-            />
+            <View style={styles.animeList}>
+                <FlatList
+                    data={this.state.current}
+                    renderItem={({item}, index) =>
+                        <Anime
+                            key={index}
+                            anime={item}
+                            date={moment(new Date(item.releaseDate)).format("h:mma")}
+                            handleModal={() => console.log("Hewoo!")}
+                        />
+                    }
+                />
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    animeList: {
+        flex: 5
+    },
     anime: {
         marginVertical: 10,
         flexDirection: "row",
