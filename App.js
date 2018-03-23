@@ -10,8 +10,6 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
-    ScrollView
 } from 'react-native';
 
 import AnimeScroll from './AnimeScroll.js'
@@ -30,7 +28,7 @@ type Props = {};
 export default class App extends Component<Props> {
     constructor(props){
         super(props)
-        this.days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]
+        this.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
         this.state = {
             data: null,
@@ -41,7 +39,6 @@ export default class App extends Component<Props> {
 
     componentWillMount(){
         let today = new Date().getDay()
-
         this.getAPIdata();
         this.setState({day: today, currentDay: today})
     }
@@ -63,6 +60,7 @@ export default class App extends Component<Props> {
 
     sortByDay(data){
         let animeList = []
+
         data.forEach((anime) => {
             let day = new Date(anime.releaseDate).getDay()
             if(animeList[day]){
@@ -79,8 +77,14 @@ export default class App extends Component<Props> {
     render() {
         let content;
         if(this.state.data){
-            content = <AnimeScroll data={this.state.data} day={this.state.day}/>
+            content = (
+                <View>
+                    <DayPicker/>
+                    <AnimeScroll data={this.state.data} day={this.state.day}/>
+                </View>
+            )
         }
+
         else{
             content = (<Text>Loading!</Text>)
         }
@@ -99,5 +103,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
+    },
+    day: {
+        textAlign: "center",
+        fontSize: 30,
+        fontWeight: '900'
     }
 });

@@ -27,23 +27,7 @@ class AnimeScroll extends Component{
         }
     }
 
-    extend(){
-        console.log("In")
-        console.log(this.state.current.length, this.props.data[1].length,
-            this.state.current.concat(this.props.data[this.state.days + 1]).length)
-        this.setState({
-            current: this.state.current.concat(this.props.data[this.state.days + 1]),
-            days: this.state.days + 1
-        })
-    }
-
     render(){
-        // const content = this.props.data[this.props.day].map((anime, index) => {
-        //     const date = new Date(anime.releaseDate)
-        //     const formattedDate = moment(date).format("h:mma");
-        //     // return <Anime key= {index} anime={anime} date={formattedDate}/>
-        // })
-
         return (
             <FlatList
                 data={this.state.current}
@@ -51,12 +35,10 @@ class AnimeScroll extends Component{
                     <Anime
                         key={index}
                         anime={item}
-                        pageSize={5}
                         date={moment(new Date(item.releaseDate)).format("h:mma")}
-                        onEndReached={() => console.log("!")}
-                        onEndReachedThreshold={0.5}
                         handleModal={() => console.log("Hewoo!")}
-                    />}
+                    />
+                }
             />
         )
     }
