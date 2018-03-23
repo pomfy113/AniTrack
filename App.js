@@ -14,7 +14,7 @@ import {
     ScrollView
 } from 'react-native';
 
-import moment from 'moment';
+import AnimeScroll from './AnimeScroll.js'
 
 
 
@@ -47,7 +47,7 @@ export default class App extends Component<Props> {
     }
 
     getAPIdata(){
-        const api = `http://our-anime-list-fc.herokuapp.com/get-current`
+        const api = `http://ouranimechart.herokuapp.com/get-current`
 
         const options = { method: 'GET' };
 
@@ -63,7 +63,6 @@ export default class App extends Component<Props> {
 
     sortByDay(data){
         let animeList = []
-        console.log(typeof data)
         data.forEach((anime) => {
             let day = new Date(anime.releaseDate).getDay()
             if(animeList[day]){
@@ -80,16 +79,7 @@ export default class App extends Component<Props> {
     render() {
         let content;
         if(this.state.data){
-            content = this.state.data[this.state.day].map((anime, index) => {
-                const formattedDate = moment(anime.releaseDate).format("HH:mma")
-                return(
-                    <View key={index} style={styles.anime}>
-                        <Image style={{width: 225, height: 293}} source={{uri: anime.picture}}/>
-                        <Text>{formattedDate}</Text>
-                        <Text style={styles.title}>{anime.title}</Text>
-                    </View>
-                )
-            })
+            content = <AnimeScroll data={this.state.data} day={this.state.day}/>
         }
         else{
             content = (<Text>Loading!</Text>)
@@ -97,9 +87,7 @@ export default class App extends Component<Props> {
 
         return (
             <View style={styles.container}>
-                <ScrollView horizontal={true}>
-                    {content}
-                </ScrollView>
+                {content}
             </View>
         );
     }
@@ -111,14 +99,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
-    },
-    anime: {
-        width: 225,
-        marginHorizontal: 10
-    },
-    title: {
-        textAlign: 'center',
-        fontSize: 20,
-        fontWeight: "800"
     }
 });
