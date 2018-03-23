@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
+import { FlatList, ListItem, StyleSheet, View, Text, Image, ScrollView } from 'react-native';
 import moment from 'moment';
 
 
@@ -15,25 +15,69 @@ function Anime(props){
     )
 }
 
+// class AnimeScroll extends Component{
+//     render(){
+//         const content = this.props.data[this.props.day].map((anime, index) => {
+//             const date = new Date(anime.releaseDate)
+//             const formattedDate = moment(date).format("h:mma");
+//             return <Anime key= {index} anime={anime} date={formattedDate}/>
+//         })
+//
+//         return (
+//             <ScrollView>
+//                 {content}
+//                 <Text>Testing</Text>
+//             </ScrollView>
+//         )
+//     }
+// }
+
 class AnimeScroll extends Component{
-    render(){
-        const content = this.props.data[this.props.day].map((anime, index) => {
-            const formattedDate = moment(anime.releaseDate).format("HH:mma");
-            return <Anime key= {index} anime={anime} date={formattedDate}/>
+    constructor(props){
+        super(props);
+        this.state = {
+            current: this.props.data[this.props.day],
+            days: 0
+        }
+    }
+
+    extend(){
+        console.log("In")
+        console.log(this.state.current.length, this.props.data[1].length,
+            this.state.current.concat(this.props.data[this.state.days + 1]).length)
+        this.setState({
+            current: this.state.current.concat(this.props.data[this.state.days + 1]),
+            days: this.state.days + 1
         })
+    }
+
+    render(){
+        // const content = this.props.data[this.props.day].map((anime, index) => {
+        //     const date = new Date(anime.releaseDate)
+        //     const formattedDate = moment(date).format("h:mma");
+        //     // return <Anime key= {index} anime={anime} date={formattedDate}/>
+        // })
 
         return (
-            <ScrollView>
-                {content}
-                <Text>Testing</Text>
-            </ScrollView>
+            <FlatList
+                data={this.state.current}
+                renderItem={({item}, index) =>
+                    <Anime
+                        key={index}
+                        anime={item}
+                        pageSize={5}
+                        date={moment(new Date(item.releaseDate)).format("h:mma")}
+                        onEndReached={() => console.log("!")}
+                        onEndReachedThreshold={0.5}
+                        style={{flex: 1}}
+                    />}
+            />
         )
     }
 }
 
 const styles = StyleSheet.create({
     anime: {
-        flex: 1,
         marginVertical: 10,
         flexDirection: "row",
     },
