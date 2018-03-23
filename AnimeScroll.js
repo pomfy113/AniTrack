@@ -39,15 +39,16 @@ const styles = StyleSheet.create({
     },
     info: {
         marginLeft: 10,
-        width: 200
+        width: 200,
+        justifyContent: "center"
     },
-    title: {
-        fontSize: 20,
-        fontWeight: "800"
-    },
-    date: {
-        fontSize: 14,
-    }
+        title: {
+            fontSize: 25,
+            fontWeight: "800"
+        },
+        date: {
+            fontSize: 20
+        }
 });
 
 
