@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Picker, View, Text} from 'react-native';
 import moment from 'moment';
 
 
-class DayPicker extends Component{
+export default class DayPicker extends Component{
     render(){
         const PickerItems = this.props.allDays.map((day, index) => {
             return <Picker.Item
@@ -35,6 +35,3 @@ const styles = StyleSheet.create({
         borderRadius: 15
     }
 });
-
-
-export default DayPicker;

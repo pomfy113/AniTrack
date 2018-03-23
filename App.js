@@ -1,12 +1,10 @@
 import React from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-import AnimeScroll from './AnimeScroll.js'
-import DayPicker from './DayPicker.js'
+import AnimeScroll from './AnimeScroll.js';
+import DayPicker from './DayPicker.js';
+import AnimeModal from './AnimeModal.js';
+
 
 export default class App extends React.Component {
     constructor(props){
@@ -57,14 +55,12 @@ export default class App extends React.Component {
     }
 
     changeDay(day){
-        console.log(day)
         return this.setState({day: day})
     }
 
     render() {
         let content;
         if(this.state.data){
-            console.log("Found something?")
             content = (
                 <View>
                     <DayPicker currentDay={this.state.day} allDays={this.days} changeDay={(day) => this.changeDay(day)}/>
@@ -79,6 +75,7 @@ export default class App extends React.Component {
 
         return (
             <View style={styles.container}>
+                <AnimeModal on={this.state.modal}/>
                 {content}
             </View>
         );
