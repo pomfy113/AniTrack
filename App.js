@@ -15,6 +15,7 @@ export default class App extends React.Component {
             data: null,
             currentDay: null,
             day: null,
+            modal: false,
         }
     }
 
@@ -58,13 +59,17 @@ export default class App extends React.Component {
         return this.setState({day: day})
     }
 
+    changeModal(){
+        return this.setState({modal: !this.state.modal})
+    }
+
     render() {
         let content;
         if(this.state.data){
             content = (
                 <View>
                     <DayPicker currentDay={this.state.day} allDays={this.days} changeDay={(day) => this.changeDay(day)}/>
-                    <AnimeScroll data={this.state.data} day={this.state.day}/>
+                    <AnimeScroll data={this.state.data} day={this.state.day} changeModal={() => this.changeModal()}/>
                 </View>
             )
         }
@@ -75,7 +80,7 @@ export default class App extends React.Component {
 
         return (
             <View style={styles.container}>
-                <AnimeModal on={this.state.modal}/>
+                {this.state.modal === true ? <AnimeModal changeModal={() => this.changeModal()}/> : null}
                 {content}
             </View>
         );

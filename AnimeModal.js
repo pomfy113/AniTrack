@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Modal, View, Text} from 'react-native';
+import { StyleSheet, Button, TouchableOpacity, Modal, View, Text} from 'react-native';
 
 
 export default class AnimeModal extends Component{
     render(){
         return(
-                <Modal
-                    visible={true}
-                    animation="slide"
-                    onRequestClose={() => console.log("Closing!")}
-                    transparent={true}>
-                    <View style={styles.modalBG}>
-                        <View style={styles.modalBox}>
-                            <Text>Testing!</Text>
-                        </View>
+            <Modal
+                visible={true}
+                animation="slide"
+                onRequestClose={() => console.log("Closing!")}
+                transparent={true}>
+                <View style={styles.modalBG}>
+                    <View style={styles.modalBox}>
+                        <Text>Testing!</Text>
+                        <Button onPress={() => this.props.changeModal()} title="Close"/>
                     </View>
+                </View>
 
-                </Modal>
+            </Modal>
         )
     }
 

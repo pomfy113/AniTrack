@@ -5,7 +5,7 @@ import moment from 'moment';
 
 function Anime(props){
     return(
-        <TouchableOpacity onPress={props.handleModal}>
+        <TouchableOpacity onPress={props.changeModal}>
             <View style={styles.anime}>
                 <Image style={{width: 225, height: 293}} source={{uri: props.anime.picture}}/>
                 <View style={styles.info}>
@@ -31,7 +31,7 @@ class AnimeScroll extends Component{
         const content = this.props.data[this.props.day].map((anime, index) => {
             const date = new Date(anime.releaseDate)
             const formattedDate = moment(date).format("h:mma");
-            return <Anime key={index} anime={anime} date={formattedDate} handleModal={() => console.log("Hewoo!")}/>
+            return <Anime key={index} anime={anime} date={formattedDate} changeModal={() => this.props.changeModal()}/>
         })
 
         return (
