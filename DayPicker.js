@@ -6,7 +6,10 @@ import moment from 'moment';
 class DayPicker extends Component{
     render(){
         const PickerItems = this.props.allDays.map((day, index) => {
-            return <Picker.Item style={styles.pickerItems} key={index} label={day} value={index}/>
+            return <Picker.Item
+                        style={styles.pickerItems}
+                        key={index}
+                        label={day === this.props.currentDay ? `${day} (Today)` : day} value={index}/>
         })
 
         return(
