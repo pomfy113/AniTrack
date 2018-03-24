@@ -12,7 +12,7 @@ export default class App extends React.Component {
         this.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
         this.state = {
-            data: null,
+            seasonData: null,
             currentDay: null,
             day: null,
             modal: false,
@@ -52,7 +52,7 @@ export default class App extends React.Component {
             }
         })
 
-        this.setState({data: animeList})
+        this.setState({seasonData: animeList})
     }
 
     changeDay(day){
@@ -65,11 +65,11 @@ export default class App extends React.Component {
 
     render() {
         let content;
-        if(this.state.data){
+        if(this.state.seasonData){
             content = (
                 <View>
                     <DayPicker currentDay={this.state.day} allDays={this.days} changeDay={(day) => this.changeDay(day)}/>
-                    <AnimeScroll data={this.state.data} day={this.state.day} changeModal={() => this.changeModal()}/>
+                    <AnimeScroll data={this.state.seasonData} day={this.state.day} changeModal={() => this.changeModal()}/>
                 </View>
             )
         }
