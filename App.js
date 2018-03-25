@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator} from 'react-native';
 
 import AnimeScroll from './AnimeScroll.js';
 import DayPicker from './DayPicker.js';
@@ -59,8 +59,8 @@ export default class App extends React.Component {
         return this.setState({day: day})
     }
 
-    changeModal(){
-        return this.setState({modal: !this.state.modal})
+    changeModal(data){
+        return this.setState({modal: !this.state.modal, animeData: data})
     }
 
     render() {
@@ -69,18 +69,26 @@ export default class App extends React.Component {
             content = (
                 <View>
                     <DayPicker currentDay={this.state.day} allDays={this.days} changeDay={(day) => this.changeDay(day)}/>
-                    <AnimeScroll data={this.state.seasonData} day={this.state.day} changeModal={() => this.changeModal()}/>
+                    <AnimeScroll data={this.state.seasonData} day={this.state.day} changeModal={(data) => this.changeModal(data)}/>
                 </View>
             )
         }
 
         else{
-            content = (<Text>Loading!</Text>)
+            content = (
+                <View>
+                    <Text>Loading!</Text>
+                    <ActivityIndicator/>
+                </View>
+
+            )
         }
 
         return (
             <View style={styles.container}>
-                {this.state.modal === true ? <AnimeModal changeModal={() => this.changeModal()}/> : null}
+                {this.state.modal === true
+                    ? <AnimeModal anime={this.state.animeData} changeModal={() => this.changeModal()}/>
+                    : null}
                 {content}
             </View>
         );

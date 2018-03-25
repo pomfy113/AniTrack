@@ -12,7 +12,7 @@ export default class AnimeModal extends Component{
                 transparent={true}>
                 <View style={styles.modalBG}>
                     <View style={styles.modalBox}>
-                        <Text>Testing!</Text>
+                        <Text>Testing! {this.props.anime.title}</Text>
                         <Button onPress={() => this.props.changeModal()} title="Close"/>
                     </View>
                 </View>
