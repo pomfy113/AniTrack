@@ -9,8 +9,8 @@ function Anime(props){
             <View style={styles.anime}>
                 <Image style={{width: 225, height: 293}} source={{uri: props.anime.picture}}/>
                 <View style={styles.info}>
-                    <Text style={styles.date}>{props.date}</Text>
                     <Text style={styles.title}>{props.anime.title}</Text>
+                    <Text style={styles.date}>{props.date}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -30,7 +30,8 @@ class AnimeScroll extends Component{
     render(){
         const content = this.props.data[this.props.day].map((anime, index) => {
             const date = new Date(anime.releaseDate)
-            const formattedDate = moment(date).format("h:mma");
+            const formattedDate = moment.tz(date, "Asia/Tokyo").tz("America/Los_Angeles").format("h:mma zz")
+
             return <Anime key={index} anime={anime} date={formattedDate} changeModal={(data) => this.props.changeModal(data)}/>
         })
 
@@ -46,7 +47,7 @@ class AnimeScroll extends Component{
 
 const styles = StyleSheet.create({
     animeList: {
-        flex: 5
+        flex: 8
     },
     anime: {
         marginVertical: 10,
@@ -58,10 +59,12 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
         title: {
+            marginVertical: 10,
             fontSize: 25,
             fontWeight: "800"
         },
         date: {
+            marginVertical: 10,
             fontSize: 20
         }
 });

@@ -28,8 +28,9 @@ export default class DayPicker extends Component{
 
 const styles = StyleSheet.create({
     picker: {
+        flex: 1,
         height: 70,
-        marginVertical: 15,
+        marginVertical: 25,
         paddingHorizontal: 15,
         backgroundColor: "#343a70",
         borderRadius: 15

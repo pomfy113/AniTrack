@@ -12,7 +12,7 @@ export default class AnimeModal extends Component{
                 transparent={true}>
                 <View style={styles.modalBG}>
                     <View style={styles.modalBox}>
-                        <Text>Testing! {this.props.anime.title}</Text>
+                        <Text>{this.props.anime.title}</Text>
                         <Button onPress={() => this.props.changeModal()} title="Close"/>
                     </View>
                 </View>
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         height: "80%",
         width: "80%",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        justifyContent: "space-between"
     }
 });

@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, ActivityIndicator} from 'react-native';
 import AnimeScroll from './AnimeScroll.js';
 import DayPicker from './DayPicker.js';
 import AnimeModal from './AnimeModal.js';
+import moment from 'moment-timezone'
 
 
 export default class App extends React.Component {
@@ -42,8 +43,9 @@ export default class App extends React.Component {
     sortByDay(data){
         let animeList = []
 
+
         data.forEach((anime) => {
-            let day = new Date(anime.releaseDate).getDay()
+            let day = moment.tz(new Date(anime.releaseDate), "Asia/Tokyo").tz("America/Los_Angeles").weekday()
             if(animeList[day]){
                 animeList[day].push(anime);
             }
