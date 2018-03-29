@@ -12,16 +12,18 @@ export default class AnimeModal extends Component{
                 transparent={true}>
                 <View style={styles.modalBG}>
                     <View style={styles.modalBox}>
-                        <View style={styles.miniBox}>
-                            <Image style={{width: 112, height: 146}} source={{uri: this.props.anime.picture}}/>
-                            <View style={{marginLeft: 30}}>
-                                <Text>{this.props.anime.title}</Text>
-                                <Text>{this.props.anime.score} / 10 </Text>
+                        <View style={{flexDirection: "column"}}>
+                            <View style={{flexDirection: "row", marginBottom: 10}}>
+                                <Image style={{width: 112, height: 146}} source={{uri: this.props.anime.picture}}/>
+                                <View style={{marginLeft: 30}}>
+                                    <Text style={{fontSize: 25}}>{this.props.anime.title}</Text>
+                                    <Text>{this.props.anime.score} / 10 </Text>
+                                </View>
                             </View>
+                            <Text>{this.props.anime.synopsis}</Text>
                         </View>
-
-                        <Text>{this.props.anime.synopsis}</Text>
-                        <Button onPress={() => this.props.changeModal()} title="Close"/>
+                        <Button style={{alignSelf: "flex-end"}}
+                            onPress={() => this.props.changeModal()} title="Close"/>
                     </View>
                 </View>
 
@@ -45,7 +47,5 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         justifyContent: "space-between"
     },
-    miniBox: {
-        flexDirection: "row"
-    }
+
 });
