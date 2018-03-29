@@ -13,10 +13,10 @@ export default class AnimeModal extends Component{
                 <View style={styles.modalBG}>
                     <View style={styles.modalBox}>
                         <View style={{flexDirection: "column"}}>
-                            <View style={{flexDirection: "row", marginBottom: 10}}>
+                            <View style={styles.modalHead}>
                                 <Image style={{width: 112, height: 146}} source={{uri: this.props.anime.picture}}/>
-                                <View style={{marginLeft: 30}}>
-                                    <Text style={{fontSize: 25}}>{this.props.anime.title}</Text>
+                                <View style={styles.headInfo}>
+                                    <Text style={styles.title}>{this.props.anime.title}</Text>
                                     <Text>{this.props.anime.score} / 10 </Text>
                                 </View>
                             </View>
@@ -47,5 +47,16 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         justifyContent: "space-between"
     },
-
+    modalHead: {
+        flexDirection: "row",
+        marginBottom: 10
+    },
+    headInfo: {
+        marginLeft: 30,
+        width: 0,
+        flexGrow: 1
+    },
+    title: {
+        fontSize: 25
+    }
 });
